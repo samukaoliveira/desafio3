@@ -1,28 +1,18 @@
 class Calcula
     
-    attr_accessor :nota
-    attr_accessor :carga_aluno
-    attr_accessor :carga_turma
-end
-
-class CalculaCrAlunos < Calcula
+    attr_accessor :nota, :carga_aluno, :carga_turma
     
-    def initialize(nota, carga_aluno, carga_turma)
+    def initialize(aluno, nota, carga_disc, carga_turma)
+        @aluno = aluno
         @nota = nota
-        @carga_aluno = carga_aluno
+        @carga_disc = carga_disc
         @carga_turma = carga_turma
     end
 
     def CalculaCrAlunos
-        cr = @nota * @carga_aluno / @carga_turma
-        return cr
-    end
+        media = @nota * @carga_disc / @carga_turma
+        resultado = "#{aluno} - #{media}"
 
-end
-
-class CalculaCrCurso < Calcula
-    
-    def CalculaCrTurma(nota, carga_aluno, carga_turma)
     end
 
 end

@@ -4,27 +4,23 @@ require_relative 'Calcula'
 
 
 class ListaAluno
+    attr_reader :coluna1_distintos
 
 
     def initialize(leitura)
         @leitura = leitura
         @leitura.lerCsv
+        gerar_lista_distintos
     end
 
 
-    def somar
-        soma = 0
+    def gerar_lista_distintos
 
-        @leitura.array_csv.each do |linha|
-
-            if linha[0] == codigo
-                puts "Debug: Adicionando #{linha[coluna]} à soma"
-                soma += linha[coluna]
-            end
-        end
-
-        return soma
+        @coluna1_distintos = @leitura.array_csv.map { |linha| linha[0] }.uniq 
     end
+
+
+    
 
 
 end
