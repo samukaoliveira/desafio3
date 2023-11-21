@@ -1,6 +1,9 @@
 require_relative 'Leitura2'
+require_relative 'SomaAluno'
+require_relative 'Calcula'
 
-class SomaAluno
+
+class ListaAluno
 
 
     def initialize(leitura)
@@ -9,7 +12,7 @@ class SomaAluno
     end
 
 
-    def somar(codigo, coluna)
+    def somar
         soma = 0
 
         @leitura.array_csv.each do |linha|

@@ -10,9 +10,13 @@ class SomaTest
     soma = SomaAluno.new(leitura)
 
     #inicializo uma variável de teste pra pegar o código 100
-    cod = 110
+    cod = 100
 
-    soma_notas = soma.somar_notas(cod)
+    soma_notas = soma.somar(cod, 3)
+
+    soma_carga = soma.somar(cod, 4)
 
     puts soma_notas
+
+    puts soma_carga
 end
