@@ -1,6 +1,6 @@
 class Calcula
     
-    attr_accessor :nota, :carga_aluno, :carga_turma
+    attr_accessor :aluno, :nota, :carga_disc, :carga_turma
     
     def initialize(aluno, nota, carga_disc, carga_turma)
         @aluno = aluno
@@ -11,7 +11,7 @@ class Calcula
 
     def CalculaCrAlunos
         media = @nota * @carga_disc / @carga_turma
-        resultado = "#{aluno} - #{media}"
+        resultado = "#{@aluno} - #{media}"
 
     end
 

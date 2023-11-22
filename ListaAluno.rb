@@ -10,13 +10,15 @@ class ListaAluno
     def initialize(leitura)
         @leitura = leitura
         @leitura.lerCsv
-        gerar_lista_distintos
+        codigo_alunos
     end
 
 
-    def gerar_lista_distintos
+    def codigo_alunos
 
         @coluna1_distintos = @leitura.array_csv.map { |linha| linha[0] }.uniq 
+
+        #puts @coluna1_distintos
     end
 
 

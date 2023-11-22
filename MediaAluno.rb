@@ -1,34 +1,32 @@
-require_relative 'Leitura2'
-require_relative 'SomaAluno'
-require_relative 'Calcula'
-require_relative 'ListaAluno'
+# require_relative 'Leitura2'
+# require_relative 'SomaAluno'
+# require_relative 'Calcula'
+# require_relative 'ListaAluno'
 
 
-class MediaAluno
+# class MediaAluno
 
 
-    def initialize(lista_aluno)
-        @lista_aluno = lista_aluno
-    end
+#     def initialize(coluna1_distintos, )
+#         @coluna1_distintos = coluna1_distintos
+#     end
 
 
-    def calculaMedia
+#     def calculaMedia(coluna1_distintos)
 
-        media_por_aluno = {}
-
-        @lista_aluno.coluna1_distintos.each do |valor|
+#         @media = @coluna1_distintos.each do |valor|
             
-            aluno_cr = CalculaCrAlunos.new(valor, valor[3], valor[4], soma.somar(cod, 4))
-            resultado1 = aluno_cr.CalculaCrAlunos
+#             aluno_cr = CalculaCrAlunos.new(@media.valor, soma.somar(cod, 3), valor[4], soma.somar(cod, 4))
+#             resultado1 = aluno_cr.CalculaCrAlunos
 
-            puts resultado1
-            return resultado1
+#             puts resultado1
+#             return resultado1
         
-        end
+#         end
         
 
         
-    end
+#     end
 
 
-end
+# end

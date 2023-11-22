@@ -9,13 +9,13 @@ class SomaAluno
     end
 
 
-    def somar(codigo, coluna)
+    def somar(aluno, coluna)
         soma = 0
 
         @leitura.array_csv.each do |linha|
 
-            if linha[0] == codigo
-                puts "Debug: Adicionando #{linha[coluna]} à soma"
+            if linha[0] == aluno
+                #puts "Debug: Adicionando #{linha[coluna]} à soma"
                 soma += linha[coluna]
             end
         end

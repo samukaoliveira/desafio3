@@ -20,9 +20,9 @@ class Leitura
             #Faz o loop de varredura separando as colunas de cada linha por vírgula
             CSV.foreach(@file) do |row|
             
-               array_csv << row.map(&:to_i)
+               array_csv << row#.map(&:to_i)
 
-                puts row.join(', ')
+                #puts row.join(', ')
             end
         else
             puts "Arquivo não encontrado."
