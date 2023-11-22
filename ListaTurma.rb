@@ -9,7 +9,7 @@ class ListaTurma
 
     def initialize(leitura)
         @leitura = leitura
-        @leitura.lerCsv
+        @leitura.lerCsv(false)
         codigo_turmas
     end
 

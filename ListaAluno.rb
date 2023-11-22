@@ -9,7 +9,7 @@ class ListaAluno
 
     def initialize(leitura)
         @leitura = leitura
-        @leitura.lerCsv
+        @leitura.lerCsv(true)
         codigo_alunos
     end
 

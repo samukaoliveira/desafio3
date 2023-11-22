@@ -13,14 +13,18 @@ class Leitura
     end
 
 #Cria o método para ler o arquivo CSV
-    def lerCsv
+    def lerCsv(row_map)
 
         #Verifica se o arquivo existe
         if File.exist?(@file)
             #Faz o loop de varredura separando as colunas de cada linha por vírgula
             CSV.foreach(@file) do |row|
-            
-               array_csv << row#.map(&:to_i)
+                
+                if row_map == true
+                    array_csv << row.map(&:to_i)
+                else
+                    array_csv << row
+                end
 
                 #puts row.join(', ')
             end

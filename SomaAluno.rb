@@ -5,7 +5,7 @@ class SomaAluno
 
     def initialize(leitura)
         @leitura = leitura
-        @leitura.lerCsv
+        @leitura.lerCsv(true)
     end
 
 

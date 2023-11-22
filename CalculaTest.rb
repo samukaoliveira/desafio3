@@ -31,7 +31,7 @@ class CalculaTest
     @lista.coluna1_distintos.each do |cod|
 
         if cod > 0
-            @leitura.lerCsv
+            @leitura.lerCsv(true)
 
             soma_notas = @soma.somar(cod, 3)
             soma_carga = @soma.somar(cod, 4)
