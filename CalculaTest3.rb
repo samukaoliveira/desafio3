@@ -1,8 +1,4 @@
-require_relative 'Calcula'
-require_relative 'SomaAluno'
 require_relative 'Leitura3'
-require_relative 'ListaAluno'
-require_relative 'MediaAluno'
 require_relative 'Aluno'
 
 #Esta classe testa os métodos de cálculo
