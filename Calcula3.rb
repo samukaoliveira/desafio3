@@ -14,4 +14,6 @@ class Calcula
 
     end
 
+    
+
 end

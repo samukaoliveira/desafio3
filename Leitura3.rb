@@ -120,12 +120,25 @@ class Leitura
 
       
       # Método para mostrar a média de CR dos cursos
+      #Recebe como parâmetro o array @alunos que, por sua vez, importou do CSV
       def mostrar_media_cr_cursos(alunos)
+
+        #Imprime o Header do CR de cursos
         puts "----- Média de CR dos cursos ------"
+
+        #faz uma nova iteração de alunos agrupando pela coluna de cursos
         alunos.group_by(&:curso).each do |codigo_curso, alunos_curso|
-          total_cr_curso = alunos_curso.sum(&:CalculaCr)
+          #soma os CRs de cada aluno por curso, chamando o método CalculaCr para multiplicar cada elemento antes da soma
+          total_cr_curso = alunos_curso.sum(&:CalculaCr) #Utilizando "symbol to proc" vai somar cada multiplicação de nota por carga horária
+
+          #Soma a carga horária total de cada curso utilizando novamente "symbol to proc"...
+          #pra especificar que a soma é de todas as cargas horárias que forem referentes a um curso
           total_carga_horaria_curso = alunos_curso.sum(&:carga)
+
+          #Variável que recebe a divisão do CR total do curso pela Carga Horária Total
           media_cr_curso = total_cr_curso / total_carga_horaria_curso
+
+          #Imprime o código de cada curso com seu respectivo CR geral, utlizando formatação especial para fazer o alinhamento na tela
           puts "#{"%03d" % codigo_curso}  -  #{media_cr_curso.to_i}"
         end
         puts "-----------------------------------"
