@@ -32,21 +32,23 @@ class CalculaTest
     @lista_al.coluna1_distintos.each do |cod|
 
         if cod > 0
-            @leitura.lerCsv
+            @leitura.lerCsv(true)
 
-            turmas = @lista_tr.codigo_turmas
             soma_notas = @soma.somar(cod, 3)
             soma_carga = @soma.somar(cod, 4)
 
             #puts "Debug: cod = #{cod}, soma_carga = #{soma_carga}"
             #puts "Debug: soma_carga = #{soma_carga}"
 
-            @media = Calcula.new(cod, soma_notas, 60, soma_carga)
+            @lista_tr.turmas_distintas.each do |turma|
+
+                    @media = Calcula.new(cod, soma_notas, 60, soma_carga)
     
 
-            puts @media.CalculaCrAlunos
-            #puts soma_carga
-            # puts soma_notas
+                    puts @media.CalculaCrAlunos
+                    #puts soma_carga
+                    # puts soma_notas
+            end
         end
     end
 

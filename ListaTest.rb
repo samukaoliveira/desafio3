@@ -32,7 +32,7 @@ class ListaTest
 
     @lista_turma = ListaTurma.new(@leitura3)
 
-    puts @lista_turma.codigo_turmas
+    #puts @lista_turma.codigo_turmas
 
     # @lista_turma = ListaTurma.new(@leitura)
 
