@@ -12,6 +12,8 @@ class Leitura
         @alunos = []
     end
 
+
+# --------------------------------------------------------------------------------------------------------
 #Cria o método para ler o arquivo CSV
     def lerCsv
         @alunos = []
@@ -54,6 +56,8 @@ class Leitura
       #   mostrar_media_cr_cursos(alunos)
       # end
 
+
+# --------------------------------------------------------------------------------------------------------
       #Claclula de forma consolidada o CR geral de cada aluno somando todos os CRs de um mesmo aluno
       def calcular_e_mostrar_cr_geral(alunos)
 
@@ -71,7 +75,10 @@ class Leitura
 
             #Adiciona e soma os valores das notas e das cargas no Hash
               cr_geral[aluno.cod][:soma_cr] += aluno.CalculaCr
-              cr_geral[aluno.cod][:soma_cargas] += carga_turma
+
+              if (cr_geral[aluno.cod][:soma_cargas]) == 0
+                cr_geral[aluno.cod][:soma_cargas] = carga_turma
+              end
             
           
             #Chama o método de mostrar a média dos alunos
@@ -98,7 +105,7 @@ class Leitura
 
       end
 
-
+# --------------------------------------------------------------------------------------------------------
       #Método que soma todas as cargas horárias de um mesmo aluno
       #Recebe como parâmetros o array @alunos e código do alun a ter as cargas horárias somadas
       def soma_turma(alunos, cod_aluno)
@@ -114,11 +121,11 @@ class Leitura
           end
         end
         #retorna o valor da soma
-        return soma_turma
+        return soma_turma.to_i
 
       end
 
-      
+# --------------------------------------------------------------------------------------------------------      
       # Método para mostrar a média de CR dos cursos
       #Recebe como parâmetro o array @alunos que, por sua vez, importou do CSV
       def mostrar_media_cr_cursos(alunos)
