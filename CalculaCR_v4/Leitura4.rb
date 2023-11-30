@@ -5,20 +5,16 @@ require_relative 'Aluno'
 #Declar a Classe
 class Leitura
 
-
+  # --------------------------------------------------------------------------------------------------------
 #Inicializa o construtor utilizando @file como variável de instância.
-    def initialize(file, coluna)
+    def initialize(file)
         @file = file
         @alunos = []
-        @coluna = coluna
     end
-
 
 # --------------------------------------------------------------------------------------------------------
 #Cria o método para ler o arquivo CSV
     def lerCsv
-        @alunos = []
-        
 
 #Inicia a leitura do CSV passando o nome do arquivo "@file" como parâmetro
 #Este parâmetro é passo na instanciação de um novo objeto de da classe Leitura
@@ -36,49 +32,16 @@ class Leitura
           @alunos << Aluno.new(cod, disciplina, curso, nota, carga, turma)
         end
       
-        # Debug do array alunos
-        #puts "------- Alunos lidos do CSV --------"
-        #alunos.each do |aluno|
-        #puts "Matricula: #{aluno.cod}, Disciplina: #{aluno.disciplina}, Código do curso: #{aluno.curso}, Nota: #{aluno.nota}, Carga Horária: #{aluno.carga}"
-        #end
-        #puts "------------------------------------"
-      
         #Chama o método de calcular o CR dos alunos passando como parâmetro o array com os dados do CSV
-        calcular_e_mostrar_cr(@alunos, @coluna)
+        calcular_CR_aluno(@alunos, 1)
+        calcular_CR_aluno(@alunos, 2)
+        
     end
-
-    #**********Método de calcular os alunos - mostra todas as disciplinas de um aluno
-   
-      # def calcular_e_mostrar_cr(alunos)
-      #   puts "------- O CR dos alunos é: --------"
-      #   @alunos.each { |aluno| puts "#{aluno.cod}  -  #{aluno.CalculaCr / soma_turma(@alunos, aluno.cod)}" }
-      #   puts "-----------------------------------"
-      
-      #   #Chama o método de mostrar a média dos alunos
-      #   mostrar_media_cr_cursos(alunos)
-      # end
-
-      def verifica_coluna(coluna)
-
-        case coluna
-        when 0
-          aluno_ou_curso = 'aluno.cod'
-        when 2
-          aluno_ou_curso = 'aluno.curso'
-        else
-          puts "Parâmetro inválido"
-          #puts param_coluna
-        end
-
-        return aluno_ou_curso
-
-      end
 
 # --------------------------------------------------------------------------------------------------------
       #Claclula de forma consolidada o CR geral de cada aluno somando todos os CRs de um mesmo aluno
-      def calcular_e_mostrar_cr(alunos, coluna)
-
-          col_alu_ou_curso = verifica_coluna(coluna)
+      def calcular_CR_aluno(alunos, al_ou_curso)
+        @display = ""
 
         #Declara um Hash
         cr_geral = {}
@@ -86,29 +49,29 @@ class Leitura
         #Inicia uma iteração no array @Alunos pra importar o codigo de cada um e somar as notas e cargas sem repetir
           @alunos.each do |aluno| 
 
-            #Verifica se o parâmetro passado é pra clacular aluno ou curso
-        # case param_coluna
-        # when 1
-        #   aluno_ou_curso = aluno.cod
-        # when 2
-        #   aluno_ou_curso = aluno.curso
-        # else
-        #   puts "Parâmetro inválido"
-        #   puts param_coluna
-        # end
 
+            case al_ou_curso
+            when 1
+              coluna_cr = aluno.cod
+              @display = "Alunos"
+            when 2
+              coluna_cr = aluno.curso
+              @display = "Cursos"
+            else
+              puts "Parâmetro inválido"
+            end
 
             #Cria uma variável pra armazenas as somas de todas as cargas horárias de um mesmo aluno
-              carga_turma = soma_turma(@alunos, coluna)
+              carga_turma = soma_turma(@alunos, al_ou_curso, coluna_cr)
 
             #Inicializa os campus do Hash
-              cr_geral[col_alu_ou_curso] ||= { soma_cr: 0, soma_cargas: 0}
+              cr_geral[coluna_cr] ||= { soma_cr: 0, soma_cargas: 0}
 
-            #Adiciona e soma os valores das notas e das cargas no Hash
-              cr_geral[col_alu_ou_curso][:soma_cr] += aluno.CalculaCr
+            #Adiciona ao Hash a soma os valores das notas multiplicados pela carga horária horária
+              cr_geral[coluna_cr][:soma_cr] += aluno.CalculaCr
 
-              if (cr_geral[col_alu_ou_curso][:soma_cargas]) == 0
-                cr_geral[col_alu_ou_curso][:soma_cargas] = carga_turma
+              if (cr_geral[coluna_cr][:soma_cargas]) == 0
+                cr_geral[coluna_cr][:soma_cargas] = carga_turma
               end
             
           
@@ -117,8 +80,7 @@ class Leitura
           end
         
         #Imprime o Header do resultado de saída
-          puts "------- O CR dos alunos é: --------"
-          puts col_alu_ou_curso
+          puts "------- O CR dos #{@display} é: --------"
         #Inicia a iteração para mostrar linha a linda do Hsh
           cr_geral.each do |cod_al, valores|
 
@@ -133,27 +95,32 @@ class Leitura
           puts "-----------------------------------"
 
         #Mostra os CRs dos cursos
-          #mostrar_media_cr_cursos(alunos)
+         # mostrar_media_cr_cursos(alunos)
 
       end
 
 # --------------------------------------------------------------------------------------------------------
       #Método que soma todas as cargas horárias de um mesmo aluno
       #Recebe como parâmetros o array @alunos e código do alun a ter as cargas horárias somadas
-      def soma_turma(alunos, cod_aluno)
-
-        
-
-        alu_ou_curso = verifica_coluna(cod_aluno)
+      def soma_turma(alunos, aluno_ou_curso, cod_aluno)
 
       #Declara a variável para somar as cargas horárias
         soma_turma = 0
         
       #Inicia a iteração das linhas onde o código do aluno é igual ao código passado por parâmetro
         @alunos.each do |aluno| 
-          
 
-          if alu_ou_curso == cod_aluno
+          case aluno_ou_curso
+          when 1
+            coluna = aluno.cod
+          when 2
+            coluna = aluno.curso
+          else
+            puts "Parâmetro inválido"
+          end
+
+
+          if coluna == cod_aluno
             #Armazena as somas em uma variável
               soma_turma += aluno.carga
           end
@@ -163,32 +130,7 @@ class Leitura
 
       end
 
-# --------------------------------------------------------------------------------------------------------      
-      # Método para mostrar a média de CR dos cursos
-      #Recebe como parâmetro o array @alunos que, por sua vez, importou do CSV
-      def mostrar_media_cr_cursos(alunos)
 
-        #Imprime o Header do CR de cursos
-        puts "----- Média de CR dos cursos ------"
-
-        #faz uma nova iteração de alunos agrupando pela coluna de cursos
-        alunos.group_by(&:curso).each do |codigo_curso, alunos_curso|
-          #soma os CRs de cada aluno por curso, chamando o método CalculaCr para multiplicar cada elemento antes da soma
-          total_cr_curso = alunos_curso.sum(&:CalculaCr) #Utilizando "symbol to proc" vai somar cada multiplicação de nota por carga horária
-
-          #Soma a carga horária total de cada curso utilizando novamente "symbol to proc"...
-          #pra especificar que a soma é de todas as cargas horárias que forem referentes a um curso
-          total_carga_horaria_curso = alunos_curso.sum(&:carga)
-
-          #Variável que recebe a divisão do CR total do curso pela Carga Horária Total
-          media_cr_curso = total_cr_curso / total_carga_horaria_curso
-
-          #Imprime o código de cada curso com seu respectivo CR geral, utlizando formatação especial para fazer o alinhamento na tela
-          puts "#{"%03d" % codigo_curso}  -  #{media_cr_curso.to_i}"
-        end
-        puts "-----------------------------------"
-      end
- 
 
 
 end

@@ -5,18 +5,16 @@ require_relative 'Aluno'
 #Declar a Classe
 class Leitura
 
-
+  # --------------------------------------------------------------------------------------------------------
 #Inicializa o construtor utilizando @file como variável de instância.
     def initialize(file)
         @file = file
         @alunos = []
     end
 
-
 # --------------------------------------------------------------------------------------------------------
 #Cria o método para ler o arquivo CSV
     def lerCsv
-        @alunos = []
 
 #Inicia a leitura do CSV passando o nome do arquivo "@file" como parâmetro
 #Este parâmetro é passo na instanciação de um novo objeto de da classe Leitura
@@ -34,32 +32,13 @@ class Leitura
           @alunos << Aluno.new(cod, disciplina, curso, nota, carga, turma)
         end
       
-        # Debug do array alunos
-        #puts "------- Alunos lidos do CSV --------"
-        #alunos.each do |aluno|
-        #puts "Matricula: #{aluno.cod}, Disciplina: #{aluno.disciplina}, Código do curso: #{aluno.curso}, Nota: #{aluno.nota}, Carga Horária: #{aluno.carga}"
-        #end
-        #puts "------------------------------------"
-      
         #Chama o método de calcular o CR dos alunos passando como parâmetro o array com os dados do CSV
-        calcular_e_mostrar_cr_geral(@alunos)
+        calcular_CR_aluno(@alunos)
     end
-
-    #**********Método de calcular os alunos - mostra todas as disciplinas de um aluno
-   
-      # def calcular_e_mostrar_cr(alunos)
-      #   puts "------- O CR dos alunos é: --------"
-      #   @alunos.each { |aluno| puts "#{aluno.cod}  -  #{aluno.CalculaCr / soma_turma(@alunos, aluno.cod)}" }
-      #   puts "-----------------------------------"
-      
-      #   #Chama o método de mostrar a média dos alunos
-      #   mostrar_media_cr_cursos(alunos)
-      # end
-
 
 # --------------------------------------------------------------------------------------------------------
       #Claclula de forma consolidada o CR geral de cada aluno somando todos os CRs de um mesmo aluno
-      def calcular_e_mostrar_cr_geral(alunos)
+      def calcular_CR_aluno(alunos)
 
         #Declara um Hash
         cr_geral = {}
@@ -73,9 +52,11 @@ class Leitura
             #Inicializa os campus do Hash
               cr_geral[aluno.cod] ||= { soma_cr: 0, soma_cargas: 0}
 
-            #Adiciona e soma os valores das notas e das cargas no Hash
+            #Adiciona ao Hash a soma os valores das notas multiplicados pela carga horária horária
+            #Neste momento chave de cada alune terá a soma do todo o seu PCH
               cr_geral[aluno.cod][:soma_cr] += aluno.CalculaCr
-
+            
+            #Aqui é pra garantir que só vai inserir a soma carga uma vez pra casa matrícula
               if (cr_geral[aluno.cod][:soma_cargas]) == 0
                 cr_geral[aluno.cod][:soma_cargas] = carga_turma
               end
@@ -87,7 +68,7 @@ class Leitura
         
         #Imprime o Header do resultado de saída
           puts "------- O CR dos alunos é: --------"
-        #Inicia a iteração para mostrar linha a linda do Hsh
+        #Inicia a iteração para mostrar linha a linda do Hash
           cr_geral.each do |cod_al, valores|
 
             

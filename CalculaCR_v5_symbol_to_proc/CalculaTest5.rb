@@ -1,4 +1,4 @@
-require_relative 'Leitura4'
+require_relative 'Leitura5'
 require_relative 'Aluno'
 
 #Esta classe testa os métodos de cálculo
